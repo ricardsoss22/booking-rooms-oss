@@ -17,7 +17,7 @@ class RoomController extends Controller
     }
 
     public function show($id){
-        $room = Rooms::findOrFail($id);
+        $room = Rooms::find($id);
         return view('user.show', compact('room'));
     }
 
@@ -32,15 +32,20 @@ class RoomController extends Controller
         ]);
 
         $reserve = new Reserve();
-        $reserve->name = $request->input('name');
-        $reserve->email = $request->input('email');
-        $reserve->phone = $request->input('phone');
-        $reserve->room_id = $id;
-        $reserve->user_id = $request->input('user_id');
-        $reserve->start_date = $request->input('start_date');
-        $reserve->end_date = $request->input('end_date');
-        $reserve->room_quantity = $request->input('room_quantity');
-        $reserve->save();
+        if ($reserve->exists()) {
+            return redirect('/room')->with('error', 'You have already reserved a room.');
+        }
+
+        Reserve::create([
+            'name' => $request->input('name'),
+            'email' => $request->input('email'),
+            'phone' => $request->input('phone'),
+            'room_id' => $id,
+            'user_id' => $request->input('user_id'),
+            'start_date' => $request->input('start_date'),
+            'end_date' => $request->input('end_date'),
+            'room_quantity' => $request->input('room_quantity'),
+        ]);
 
         $room = Rooms::find($reserve->room_id);
         $room->quantity = $room->quantity - $request->input('room_quantity');

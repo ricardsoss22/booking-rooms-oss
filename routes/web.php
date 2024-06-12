@@ -42,7 +42,7 @@ Route::middleware('auth')->group(function(){
 Route::middleware('auth')->group(function(){
     Route::get('/dashboard',[HomeController::class, 'index'])->name('dashboard');
     Route::get('/room',[RoomController::class, 'index'])->name('user.room');
-    Route::get('/room/show/{id}',[RoomController::class, 'show'])->name('user.room.show');
+    Route::get('/room/{id}/show',[RoomController::class, 'show'])->name('user.room.show');
     Route::post('/room/show/reserve/{id}',[RoomController::class, 'store'])->name('user.reserve.store');
     // reserve show
     Route::get('/reserve',[ReserveController::class, 'index'])->name('user.reserve');

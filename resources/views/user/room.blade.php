@@ -1,5 +1,5 @@
 <x-app-layout>
-    <?php 
+    <?php
         // Mock room data
         $rooms = [
             (object)[
@@ -29,7 +29,7 @@
             <h1 class="p-4 text-orange-500 font-bold text-4xl md:text-7xl text-center" style="font-family: 'Arial', sans-serif;">
                 Rooms
             </h1>
-            
+
             <div class="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3 md:gap-8 mt-6 md:mt-8">
                 @foreach ($rooms as $room)
                     <div class="bg-white border border-gray-200 rounded-lg shadow-md overflow-hidden hover:shadow-xl transition-shadow duration-300">
@@ -37,7 +37,7 @@
                         <div class="p-4 md:p-6">
                             <h3 class="text-xl md:text-2xl font-bold text-orange-500 mb-2">{{ $room->name }}</h3>
                             <p class="text-gray-700 mb-4">{{ $room->description }}</p>
-                            <a href="/room/show/{{ $room->id }}" class="inline-block bg-orange-500 text-white px-4 md:px-6 py-2 rounded-lg font-bold uppercase text-sm md:text-base transition-transform duration-200 transform hover:scale-105">
+                            <a href="{{ route('user.room.show', $room->id) }}" class="inline-block bg-orange-500 text-white px-4 md:px-6 py-2 rounded-lg font-bold uppercase text-sm md:text-base transition-transform duration-200 transform hover:scale-105">
                                 View Room
                             </a>
                         </div>
